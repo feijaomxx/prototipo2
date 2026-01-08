@@ -1,70 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Facilita - Sistema Integrado</title>
+    <title>Portal Facilita - Sistema Integrado v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="https://www.google.com/s2/favicons?domain=facilitafinanciamento.com.br&sz=64">
+    <link rel="icon" type="image/png"
+        href="https://www.google.com/s2/favicons?domain=facilitafinanciamento.com.br&sz=64">
 </head>
+
 <body>
 
     <div id="loginScreen" class="login-overlay">
         <div class="login-box">
-            <div class="brand-login">
-                <i class="fa-solid fa-location-dot"></i> PORTAL FACILITA
-            </div>
+            <div class="brand-login"><i class="fa-solid fa-location-dot"></i> PORTAL FACILITA</div>
             <h3>Acesso ao Sistema</h3>
-            <p>Digite seu usuário para carregar o perfil correto.</p>
-            
             <form id="formLogin">
                 <div class="input-group">
-                    <label>Usuário</label>
-                    <input type="text" id="loginUser" placeholder="ex: vendedor, gerente, mecanica..." required>
+                    <label>Usuário (Ex: vendedor, gerente, mecanica, financeiro)</label>
+                    <input type="text" id="loginUser" required>
                 </div>
                 <div class="input-group">
-                    <label>Senha</label>
-                    <input type="password" id="loginPass" placeholder="*****" required>
+                    <label>Senha (Qualquer uma)</label>
+                    <input type="password" id="loginPass" required>
                 </div>
                 <button type="submit" class="btn-login">ENTRAR NO SISTEMA</button>
             </form>
-            <div class="login-help">
-                <small>Teste: <b>vendedor</b>, <b>gerente</b>, <b>mecanica</b> ou <b>financeiro</b> (Senha: 123)</small>
-            </div>
         </div>
     </div>
 
     <div id="appLayout" class="app-container" style="display: none;">
-        
-        <aside class="sidebar">
+
+        <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <i class="fa-solid fa-location-dot"></i> <span>FACILITA</span>
+                <button class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-
             <div class="user-mini-profile">
-                <img src="https://ui-avatars.com/api/?name=User&background=fff&color=1e88e5" id="menuAvatar">
+                <img src="https://ui-avatars.com/api/?name=User+Test&background=fff&color=1e88e5" id="menuAvatar">
                 <div class="u-info">
                     <strong id="menuUserNome">---</strong>
                     <small id="menuUserCargo">---</small>
                 </div>
             </div>
-
             <nav class="menu-items" id="dynamicMenu">
-                </nav>
-
+            </nav>
             <button class="btn-sair" onclick="fazerLogout()">
                 <i class="fa-solid fa-power-off"></i> Sair
             </button>
         </aside>
 
         <main class="content-wrapper">
-            
             <header class="top-bar">
-                <h2 id="pageTitle">Visão Geral</h2>
-                <div class="top-actions">
-                    <div class="notif-badge"><i class="fa-solid fa-bell"></i></div>
+                <div class="left-top">
+                    <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+                    <h2 id="pageTitle">Visão Geral</h2>
                 </div>
             </header>
 
@@ -72,22 +67,29 @@
                 <div class="kpi-grid">
                     <div class="kpi-card">
                         <div class="kpi-icon blue"><i class="fa-solid fa-car"></i></div>
-                        <div class="kpi-info"><h3>15</h3><p>Vendas Hoje</p></div>
+                        <div class="kpi-info">
+                            <h3><span id="kpiVendasHoje">0</span></h3>
+                            <p>Vendas Hoje</p>
+                        </div>
                     </div>
                     <div class="kpi-card">
                         <div class="kpi-icon green"><i class="fa-solid fa-dollar-sign"></i></div>
-                        <div class="kpi-info"><h3>R$ 1.2M</h3><p>Faturamento</p></div>
+                        <div class="kpi-info">
+                            <h3>R$ <span id="kpiFaturamento">0k</span></h3>
+                            <p>Faturamento Dia</p>
+                        </div>
                     </div>
                     <div class="kpi-card">
                         <div class="kpi-icon orange"><i class="fa-solid fa-wrench"></i></div>
-                        <div class="kpi-info"><h3>8</h3><p>OS em Aberto</p></div>
+                        <div class="kpi-info">
+                            <h3><span id="kpiOSPendentes">0</span></h3>
+                            <p>OS em Aberto</p>
+                        </div>
                     </div>
                 </div>
-
                 <div class="panel-box">
                     <h3>Ranking de Vendas (Hoje)</h3>
-                    <div class="ranking-simple-list" id="listaRanking">
-                        </div>
+                    <div class="ranking-simple-list" id="listaRanking"></div>
                 </div>
             </section>
 
@@ -95,7 +97,8 @@
                 <div class="panel-box">
                     <div class="panel-header">
                         <h3>Estoque Disponível</h3>
-                        <input type="text" placeholder="Buscar placa ou modelo..." class="search-input" onkeyup="filtrarEstoque(this.value)">
+                        <input type="text" placeholder="Buscar placa, modelo..." class="search-input"
+                            onkeyup="filtrarEstoque(this.value)">
                     </div>
                     <div class="table-responsive">
                         <table class="data-table">
@@ -104,208 +107,293 @@
                                     <th>Placa</th>
                                     <th>Modelo/Cor</th>
                                     <th>Ano</th>
-                                    <th>Preço Venda</th>
+                                    <th>Valor</th>
                                     <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabelaEstoque">
-                                </tbody>
+                            <tbody id="tabelaEstoque"></tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <section id="sec-venda" class="page-section">
-                <div class="wizard-container">
-                    
-                    <div id="venda-step-1" class="wizard-step active">
-                        <h3><i class="fa-solid fa-1"></i> Dados da Venda</h3>
-                        <div class="form-grid">
-                            <div class="input-group">
-                                <label>Veículo Selecionado</label>
-                                <input type="text" id="vendaVeiculo" readonly class="input-readonly">
-                                <input type="hidden" id="vendaPlaca"> </div>
-                            <div class="input-group">
-                                <label>Valor (R$)</label>
-                                <input type="text" id="vendaValor" readonly class="input-readonly">
-                            </div>
-                            <div class="input-group">
-                                <label>Nome do Cliente</label>
-                                <input type="text" id="vendaCliente" placeholder="Nome completo">
-                            </div>
-                            <div class="input-group">
-                                <label>CPF</label>
-                                <input type="text" id="vendaCPF" placeholder="000.000.000-00">
+            <section id="sec-solicitacao" class="page-section">
+                <div class="wizard-container paper-style">
+
+                    <div class="wizard-progress">
+                        <div class="step step-1 active"><span>1</span> Dados & CEP</div>
+                        <div class="line line-1"></div>
+                        <div class="step step-2"><span>2</span> Documentação</div>
+                        <div class="line line-2"></div>
+                        <div class="step step-3"><span>3</span> Pagamento</div>
+                    </div>
+
+                    <div class="wizard-step active" id="sol-step1">
+                        <div class="sol-block highlight-block">
+                            <h4>Veículo Selecionado</h4>
+                            <div class="form-grid-3">
+                                <div class="ig"><label>Modelo</label><input type="text" id="solModelo" readonly
+                                        class="bg-gray bold"></div>
+                                <div class="ig"><label>Placa</label><input type="text" id="solPlaca" readonly
+                                        class="bg-gray bold"></div>
+                                <div class="ig"><label>Valor (R$)</label><input type="text" id="solValor" readonly
+                                        class="bg-gray bold text-blue"></div>
                             </div>
                         </div>
-                        <div class="form-obs">
-                            <label>Observação da Negociação</label>
-                            <textarea id="vendaObs" rows="3" placeholder="Detalhes do acordo, brindes, etc..."></textarea>
+
+                        <div class="sol-block">
+                            <h4>Dados do Cliente</h4>
+                            <div class="form-grid-2">
+                                <div class="ig full"><label>Nome Completo *</label><input type="text" id="cliNome">
+                                </div>
+                                <div class="ig"><label>CPF *</label><input type="text" id="cliCPF"
+                                        placeholder="000.000.000-00" maxlength="14"></div>
+                                <div class="ig"><label>RG</label><input type="text" id="cliRG"></div>
+                                <div class="ig"><label>Email</label><input type="email" id="cliEmail"></div>
+                                <div class="ig"><label>Telefone *</label><input type="text" id="cliTel"></div>
+                            </div>
                         </div>
+
+                        <div class="sol-block mg-top">
+                            <h4>Endereço (Busca Automática)</h4>
+                            <div class="form-grid-3" style="align-items: flex-end;">
+                                <div class="ig"><label>CEP *</label><input type="text" id="endCEP"
+                                        placeholder="00000-000" maxlength="9"></div>
+                                <div class="ig" style="flex: 0 0 auto;"><button class="btn-secondary" type="button"
+                                        onclick="buscarCEP()"><i class="fa-solid fa-search"></i> Buscar</button></div>
+                            </div>
+                            <div class="form-grid-3 mg-top">
+                                <div class="ig full"><label>Logradouro</label><input type="text" id="endRua"
+                                        class="bg-gray" readonly></div>
+                                <div class="ig"><label>Número *</label><input type="text" id="endNum"></div>
+                                <div class="ig"><label>Bairro</label><input type="text" id="endBairro" class="bg-gray"
+                                        readonly></div>
+                                <div class="ig"><label>Cidade/UF</label><input type="text" id="endCidade"
+                                        class="bg-gray" readonly></div>
+                            </div>
+                        </div>
+
                         <div class="wizard-footer">
-                            <button class="btn-secondary" onclick="voltarEstoque()">Cancelar</button>
-                            <button class="btn-primary" onclick="irParaContrato()">Gerar Contrato <i class="fa-solid fa-arrow-right"></i></button>
+                            <button class="btn-secondary" onclick="navegar('sec-estoque')">Cancelar</button>
+                            <button class="btn-primary" onclick="proximoPasso(2)">Continuar <i
+                                    class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
 
-                    <div id="venda-step-2" class="wizard-step">
-                        <h3><i class="fa-solid fa-file-contract"></i> Contrato Gerado</h3>
-                        <div class="contrato-preview">
-                            <p>CONTRATO DE COMPRA E VENDA Nº <span id="contratoNum">000</span></p>
-                            <p>Eu, <strong id="c-cliente">---</strong>, CPF <span id="c-cpf">---</span>, firmo a compra do veículo <span id="c-veiculo">---</span> pelo valor de <span id="c-valor">---</span>.</p>
-                            <p class="signature-line">Assinatura Cliente</p>
+                    <div class="wizard-step" id="sol-step2">
+                        <div class="docs-container">
+                            <div class="doc-preview contract-theme">
+                                <div class="doc-header">CONTRATO DE COMPRA E VENDA</div>
+                                <div id="contractBody" class="doc-body">
+                                </div>
+                                <div class="signatures">
+                                    <div class="sig-line">Assinatura do Cliente</div>
+                                    <div class="sig-line">Assinatura Facilita Veículos</div>
+                                </div>
+                            </div>
+
+                            <div class="doc-preview receipt-theme paper-cut">
+                                <div class="receipt-header">
+                                    <h4>FACILITA VEÍCULOS LTDA</h4>
+                                    <small>CNPJ: 12.345.678/0001-99</small><br>
+                                    <small>Av. Fernandes Lima, 100 - Farol</small>
+                                </div>
+                                <hr class="dashed">
+                                <div style="text-align: center; font-weight: bold;">COMPROVANTE NÃO FISCAL</div>
+                                <hr class="dashed">
+                                <div id="receiptBody">
+                                </div>
+                                <hr class="dashed">
+                                <div class="receipt-total">TOTAL R$ <span id="receiptTotal">0,00</span></div>
+                                <hr class="dashed">
+                                <div style="text-align: center; font-size: 0.8rem;">Obrigado pela preferência!</div>
+                            </div>
                         </div>
+
                         <div class="wizard-footer">
-                            <button class="btn-secondary" onclick="mudarPassoVenda(1)">Voltar</button>
-                            <button class="btn-success" onclick="irParaPagamento()">Confirmar e Ir para Pagamento <i class="fa-solid fa-money-bill"></i></button>
+                            <button class="btn-secondary" onclick="proximoPasso(1)">Voltar</button>
+                            <button class="btn-primary" onclick="proximoPasso(3)">Confirmar Documentos <i
+                                    class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
 
-                    <div id="venda-step-3" class="wizard-step">
-                        <h3><i class="fa-solid fa-wallet"></i> Solicitação de Pagamento</h3>
-                        <div class="form-grid">
-                            <div class="input-group">
-                                <label>Endereço Completo</label>
-                                <input type="text" placeholder="Rua, Número, Bairro...">
-                            </div>
-                            <div class="input-group">
-                                <label>Forma de Pagamento</label>
-                                <select id="formaPagto">
-                                    <option>PIX (À Vista)</option>
-                                    <option>Financiamento</option>
-                                    <option>Cartão de Crédito</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>Anexar Comprovante</label>
-                                <input type="file" class="file-input">
+                    <div class="wizard-step" id="sol-step3">
+                        <div class="sol-block">
+                            <h4>Forma de Pagamento</h4>
+                            <div class="form-grid-2">
+                                <div class="ig"><label>Modalidade</label>
+                                    <select id="pgForma">
+                                        <option>À Vista (PIX)</option>
+                                        <option>Financiamento Bancário</option>
+                                        <option>Cartão de Crédito</option>
+                                    </select>
+                                </div>
+                                <div class="ig"><label>Banco/Financeira</label><input type="text" id="pgBanco"></div>
+                                <div class="ig"><label>Valor de Entrada (R$)</label><input type="number" id="pgEntrada"
+                                        value="0"></div>
                             </div>
                         </div>
+
+                        <div class="sol-block">
+                            <h4>Moto de Entrada (Troca)</h4>
+                            <div class="form-grid-3">
+                                <div class="ig"><label>Placa</label><input type="text" id="trocaPlaca"></div>
+                                <div class="ig"><label>Modelo</label><input type="text" id="trocaModelo"></div>
+                                <div class="ig"><label>Valor Avaliado (R$)</label><input type="number" id="trocaValor"
+                                        value="0"></div>
+                            </div>
+                        </div>
+
+                        <div class="sol-block">
+                            <h4>Detalhes Finais</h4>
+                            <div class="ig full"><label>Observações da Negociação</label><textarea id="negociacaoObs"
+                                    rows="3"></textarea></div>
+                            <div class="form-grid-2 mg-top">
+                                <div class="ig"><label>Captação (Origem)</label>
+                                    <select id="solCaptacao">
+                                        <option>Loja Presencial</option>
+                                        <option>WhatsApp</option>
+                                        <option>Instagram/Facebook</option>
+                                        <option>Indicação</option>
+                                    </select>
+                                </div>
+                                <div class="ig"><label>Vendedor Responsável</label><input type="text" id="solVendedor"
+                                        readonly class="bg-gray"></div>
+                            </div>
+                        </div>
+
                         <div class="wizard-footer">
-                            <button class="btn-secondary" onclick="mudarPassoVenda(2)">Voltar</button>
-                            <button class="btn-primary" onclick="finalizarVenda()">ENVIAR PARA FINANCEIRO <i class="fa-solid fa-check-double"></i></button>
+                            <button class="btn-secondary" onclick="proximoPasso(2)">Voltar</button>
+                            <button class="btn-success full-width-btn" onclick="finalizarVendaWizard()">CONCLUIR VENDA E
+                                ENVIAR <i class="fa-solid fa-check"></i></button>
                         </div>
                     </div>
 
+                </div>
+            </section>
+
+            <section id="sec-historico" class="page-section">
+                <div class="panel-box">
+                    <h3>Minhas Vendas Recentes</h3>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Veículo</th>
+                                    <th>Cliente</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaMinhasVendas"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-financeiro" class="page-section">
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon green"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                        <div class="kpi-info">
+                            <small>Entradas (Vendas Concluídas)</small>
+                            <h3>R$ <span id="finEntradas">0</span></h3>
+                            <span class="trend-up"><i class="fa-solid fa-caret-up"></i> Caixa Real</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon red" style="background: #ffebee; color: #d32f2f;"><i
+                                class="fa-solid fa-arrow-trend-down"></i></div>
+                        <div class="kpi-info">
+                            <small>Saídas (Custo de Estoque)</small>
+                            <h3>R$ <span id="finSaidas">0</span></h3>
+                            <span class="trend-down" style="color:#d32f2f">Investimento Total</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card highlight-profit">
+                        <div class="kpi-icon blue"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="kpi-info">
+                            <small>Balanço (Lucro Estimado)</small>
+                            <h3>R$ <span id="finLucroLiquido">0</span></h3>
+                            <small style="color:#555">Margem: <span id="finMargem">0%</span></small>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card" style="border: 1px solid #ff9800; background: #fff3e0;">
+                        <div class="kpi-icon orange"><i class="fa-solid fa-clock"></i></div>
+                        <div class="kpi-info">
+                            <small>Pendente de Aprovação (Leads)</small>
+                            <h3>R$ <span id="finPendente">0</span></h3>
+                            <small>30+ Solicitações na mesa</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-box">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-list-check"></i> Auditoria de Vendas (Solicitações Pendentes)</h3>
+                        <div style="display:flex; gap:10px;">
+                            <button class="btn-secondary btn-small" onclick="alert('Relatório baixado!')"><i
+                                    class="fa-solid fa-download"></i> Baixar Relatório</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Vendedor</th>
+                                    <th>Cliente</th>
+                                    <th>Veículo / Placa</th>
+                                    <th>Valor Venda</th>
+                                    <th>Pagamento</th>
+                                    <th>Status</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaLeadsFin">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
             <section id="sec-mecanica" class="page-section">
                 <div class="panel-box">
                     <div class="panel-header">
-                        <h3>Gestão de Oficina</h3>
-                        <button class="btn-primary" onclick="abrirNovaOS()">+ Nova OS</button>
+                        <h3>Ordens de Serviço (OS)</h3>
+                        <button class="btn-primary" onclick="abrirModalNovaOS()">+ Nova OS</button>
                     </div>
-                    
-                    <div id="formNovaOS" class="os-form-area" style="display:none;">
-                        <h4>Nova Ordem de Serviço</h4>
-                        <div class="form-grid">
-                            <div class="input-group">
-                                <label>Cliente</label>
-                                <input type="text" id="osCliente">
-                            </div>
-                            <div class="input-group">
-                                <label>Veículo/Placa</label>
-                                <input type="text" id="osVeiculo">
-                            </div>
-                            <div class="input-group">
-                                <label>Tipo</label>
-                                <select id="osTipo">
-                                    <option>Revisão</option>
-                                    <option>Conserto</option>
-                                    <option>Garantia</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="servicos-area">
-                            <h5>Adicionar Serviços</h5>
-                            <div class="add-servico-row">
-                                <select id="selServico">
-                                    <option value="0">Selecione...</option>
-                                    <option value="50">Troca de Óleo - R$ 50,00</option>
-                                    <option value="120">Troca de Pastilha - R$ 120,00</option>
-                                    <option value="80">Ajuste de Corrente - R$ 80,00</option>
-                                    <option value="250">Revisão Geral - R$ 250,00</option>
-                                </select>
-                                <button class="btn-small" onclick="addServicoNaLista()">Adicionar</button>
-                            </div>
-                            <ul id="listaServicosOS" class="lista-servicos">
-                                </ul>
-                            <div class="total-os">Total Estimado: R$ <span id="totalOSValue">0,00</span></div>
-                        </div>
-
-                        <div class="wizard-footer">
-                            <button class="btn-secondary" onclick="fecharNovaOS()">Cancelar</button>
-                            <button class="btn-success" onclick="salvarOS()">Gerar OS</button>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nº OS</th>
+                                    <th>Veículo</th>
+                                    <th>Data Entrega</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaOS"></tbody>
+                        </table>
                     </div>
-
-                    <br>
-                    <h4>Histórico de OS</h4>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Nº OS</th>
-                                <th>Veículo</th>
-                                <th>Status</th>
-                                <th>Total</th>
-                                <th>Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelaMecanica">
-                            </tbody>
-                    </table>
                 </div>
             </section>
 
-            <section id="sec-financeiro" class="page-section">
-                
-                <div class="kpi-grid">
-                    <div class="kpi-card">
-                        <div class="kpi-info">
-                            <small>Faturamento Bruto</small>
-                            <h3>R$ 450.000</h3>
-                        </div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-info">
-                            <small>Custo de Estoque</small>
-                            <h3>R$ 380.000</h3>
-                        </div>
-                    </div>
-                    <div class="kpi-card highlight-profit">
-                        <div class="kpi-info">
-                            <small>LUCRO LÍQUIDO</small>
-                            <h3>R$ 70.000</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel-box">
-                    <h3>Auditoria de Vendas (Aguardando Aprovação)</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Veículo</th>
-                                <th>Pagamento</th>
-                                <th>Comprovante</th>
-                                <th>Lucro da Venda</th> <th>Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelaAuditoria">
-                            </tbody>
-                    </table>
-                </div>
-            </section>
-
-             <section id="sec-equipe" class="page-section">
+            <section id="sec-equipe" class="page-section">
                 <div class="panel-box">
                     <div class="panel-header">
-                        <h3>Gestão de Colaboradores</h3>
-                        <button class="btn-primary">+ Novo Colaborador</button>
+                        <h3>Colaboradores</h3>
+                        <button class="btn-primary">+ Novo</button>
                     </div>
                     <table class="data-table">
                         <thead>
@@ -313,33 +401,84 @@
                                 <th>Matrícula</th>
                                 <th>Nome</th>
                                 <th>Cargo</th>
+                                <th>Status</th>
                                 <th>Supervisor</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1001</td>
-                                <td>Davi Emanuel</td>
-                                <td>Vendedor</td>
-                                <td>Carlos (Sup)</td>
-                                <td><button class="btn-small">Editar</button></td>
-                            </tr>
-                             <tr>
-                                <td>1002</td>
-                                <td>Ana Souza</td>
-                                <td>Vendedor</td>
-                                <td>Carlos (Sup)</td>
-                                <td><button class="btn-small">Editar</button></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
-             </section>
+            </section>
 
         </main>
     </div>
 
+    <div id="modalOS" class="modal-overlay-inner" style="display: none;">
+        <div class="modal-box large-modal">
+            <div class="modal-header">
+                <h4 id="modalOSTitle">Nova Ordem de Serviço</h4>
+                <button class="close-btn" onclick="fecharModalOS()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid-2">
+                    <div class="ig"><label>Cliente/Contato</label><input type="text" id="osClienteInput"></div>
+                    <div class="ig"><label>Veículo/Placa</label><input type="text" id="osVeiculoInput"></div>
+                </div>
+
+                <div class="ig" style="margin-top: 10px;">
+                    <label>Data Prevista Entrega</label>
+                    <input type="date" id="osDataEntrega">
+                </div>
+
+                <div id="osAddServicesArea">
+                    <hr>
+                    <h5>Adicionar Serviços</h5>
+                    <div class="add-service-row">
+                        <select id="selServicoOS">
+                            <option value="">Selecione um serviço...</option>
+                        </select>
+                        <button class="btn-secondary" onclick="addServicoNaListaBtn()">Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="lista-servicos-box">
+                    <table class="data-table mini-table">
+                        <thead>
+                            <tr>
+                                <th>Serviço</th>
+                                <th>Valor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaServicosAdd"></tbody>
+                    </table>
+                </div>
+
+                <div class="os-total-area">
+                    Total Estimado: R$ <span id="osTotalDisplay">0,00</span>
+                </div>
+
+                <div id="osAuditArea"
+                    style="display:none; margin-top: 20px; padding: 15px; background: #fff3e0; border: 1px solid #ffe0b2;">
+                    <strong>Auditoria:</strong> Esta OS está pendente de cancelamento.
+                    <div style="margin-top: 10px;">
+                        <button class="btn-danger" onclick="auditarCancelamentoOS(true)">Aprovar Cancelamento</button>
+                        <button class="btn-secondary" onclick="auditarCancelamentoOS(false)">Rejeitar</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn-danger" id="btnCancelarOS" style="display:none;"
+                    onclick="solicitarCancelamentoOS()">Solicitar Cancelamento</button>
+                <button class="btn-success" id="btnSalvarOS" onclick="salvarOS()">Gerar OS</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
+
 </html>
