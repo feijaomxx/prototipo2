@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Facilita - Sistema Integrado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="https://www.google.com/s2/favicons?domain=facilitafinanciamento.com.br&sz=64">
+</head>
+<body>
+
+    <div id="loginScreen" class="login-overlay">
+        <div class="login-box">
+            <div class="brand-login">
+                <i class="fa-solid fa-location-dot"></i> PORTAL FACILITA
+            </div>
+            <h3>Acesso ao Sistema</h3>
+            <p>Digite seu usuário para carregar o perfil correto.</p>
+            
+            <form id="formLogin">
+                <div class="input-group">
+                    <label>Usuário</label>
+                    <input type="text" id="loginUser" placeholder="ex: vendedor, gerente, mecanica..." required>
+                </div>
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input type="password" id="loginPass" placeholder="*****" required>
+                </div>
+                <button type="submit" class="btn-login">ENTRAR NO SISTEMA</button>
+            </form>
+            <div class="login-help">
+                <small>Teste: <b>vendedor</b>, <b>gerente</b>, <b>mecanica</b> ou <b>financeiro</b> (Senha: 123)</small>
+            </div>
+        </div>
+    </div>
+
+    <div id="appLayout" class="app-container" style="display: none;">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-location-dot"></i> <span>FACILITA</span>
+            </div>
+
+            <div class="user-mini-profile">
+                <img src="https://ui-avatars.com/api/?name=User&background=fff&color=1e88e5" id="menuAvatar">
+                <div class="u-info">
+                    <strong id="menuUserNome">---</strong>
+                    <small id="menuUserCargo">---</small>
+                </div>
+            </div>
+
+            <nav class="menu-items" id="dynamicMenu">
+                </nav>
+
+            <button class="btn-sair" onclick="fazerLogout()">
+                <i class="fa-solid fa-power-off"></i> Sair
+            </button>
+        </aside>
+
+        <main class="content-wrapper">
+            
+            <header class="top-bar">
+                <h2 id="pageTitle">Visão Geral</h2>
+                <div class="top-actions">
+                    <div class="notif-badge"><i class="fa-solid fa-bell"></i></div>
+                </div>
+            </header>
+
+            <section id="sec-home" class="page-section active">
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon blue"><i class="fa-solid fa-car"></i></div>
+                        <div class="kpi-info"><h3>15</h3><p>Vendas Hoje</p></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon green"><i class="fa-solid fa-dollar-sign"></i></div>
+                        <div class="kpi-info"><h3>R$ 1.2M</h3><p>Faturamento</p></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon orange"><i class="fa-solid fa-wrench"></i></div>
+                        <div class="kpi-info"><h3>8</h3><p>OS em Aberto</p></div>
+                    </div>
+                </div>
+
+                <div class="panel-box">
+                    <h3>Ranking de Vendas (Hoje)</h3>
+                    <div class="ranking-simple-list" id="listaRanking">
+                        </div>
+                </div>
+            </section>
+
+            <section id="sec-estoque" class="page-section">
+                <div class="panel-box">
+                    <div class="panel-header">
+                        <h3>Estoque Disponível</h3>
+                        <input type="text" placeholder="Buscar placa ou modelo..." class="search-input" onkeyup="filtrarEstoque(this.value)">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Placa</th>
+                                    <th>Modelo/Cor</th>
+                                    <th>Ano</th>
+                                    <th>Preço Venda</th>
+                                    <th>Status</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaEstoque">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-venda" class="page-section">
+                <div class="wizard-container">
+                    
+                    <div id="venda-step-1" class="wizard-step active">
+                        <h3><i class="fa-solid fa-1"></i> Dados da Venda</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Veículo Selecionado</label>
+                                <input type="text" id="vendaVeiculo" readonly class="input-readonly">
+                                <input type="hidden" id="vendaPlaca"> </div>
+                            <div class="input-group">
+                                <label>Valor (R$)</label>
+                                <input type="text" id="vendaValor" readonly class="input-readonly">
+                            </div>
+                            <div class="input-group">
+                                <label>Nome do Cliente</label>
+                                <input type="text" id="vendaCliente" placeholder="Nome completo">
+                            </div>
+                            <div class="input-group">
+                                <label>CPF</label>
+                                <input type="text" id="vendaCPF" placeholder="000.000.000-00">
+                            </div>
+                        </div>
+                        <div class="form-obs">
+                            <label>Observação da Negociação</label>
+                            <textarea id="vendaObs" rows="3" placeholder="Detalhes do acordo, brindes, etc..."></textarea>
+                        </div>
+                        <div class="wizard-footer">
+                            <button class="btn-secondary" onclick="voltarEstoque()">Cancelar</button>
+                            <button class="btn-primary" onclick="irParaContrato()">Gerar Contrato <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="venda-step-2" class="wizard-step">
+                        <h3><i class="fa-solid fa-file-contract"></i> Contrato Gerado</h3>
+                        <div class="contrato-preview">
+                            <p>CONTRATO DE COMPRA E VENDA Nº <span id="contratoNum">000</span></p>
+                            <p>Eu, <strong id="c-cliente">---</strong>, CPF <span id="c-cpf">---</span>, firmo a compra do veículo <span id="c-veiculo">---</span> pelo valor de <span id="c-valor">---</span>.</p>
+                            <p class="signature-line">Assinatura Cliente</p>
+                        </div>
+                        <div class="wizard-footer">
+                            <button class="btn-secondary" onclick="mudarPassoVenda(1)">Voltar</button>
+                            <button class="btn-success" onclick="irParaPagamento()">Confirmar e Ir para Pagamento <i class="fa-solid fa-money-bill"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="venda-step-3" class="wizard-step">
+                        <h3><i class="fa-solid fa-wallet"></i> Solicitação de Pagamento</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Endereço Completo</label>
+                                <input type="text" placeholder="Rua, Número, Bairro...">
+                            </div>
+                            <div class="input-group">
+                                <label>Forma de Pagamento</label>
+                                <select id="formaPagto">
+                                    <option>PIX (À Vista)</option>
+                                    <option>Financiamento</option>
+                                    <option>Cartão de Crédito</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Anexar Comprovante</label>
+                                <input type="file" class="file-input">
+                            </div>
+                        </div>
+                        <div class="wizard-footer">
+                            <button class="btn-secondary" onclick="mudarPassoVenda(2)">Voltar</button>
+                            <button class="btn-primary" onclick="finalizarVenda()">ENVIAR PARA FINANCEIRO <i class="fa-solid fa-check-double"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="sec-mecanica" class="page-section">
+                <div class="panel-box">
+                    <div class="panel-header">
+                        <h3>Gestão de Oficina</h3>
+                        <button class="btn-primary" onclick="abrirNovaOS()">+ Nova OS</button>
+                    </div>
+                    
+                    <div id="formNovaOS" class="os-form-area" style="display:none;">
+                        <h4>Nova Ordem de Serviço</h4>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Cliente</label>
+                                <input type="text" id="osCliente">
+                            </div>
+                            <div class="input-group">
+                                <label>Veículo/Placa</label>
+                                <input type="text" id="osVeiculo">
+                            </div>
+                            <div class="input-group">
+                                <label>Tipo</label>
+                                <select id="osTipo">
+                                    <option>Revisão</option>
+                                    <option>Conserto</option>
+                                    <option>Garantia</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="servicos-area">
+                            <h5>Adicionar Serviços</h5>
+                            <div class="add-servico-row">
+                                <select id="selServico">
+                                    <option value="0">Selecione...</option>
+                                    <option value="50">Troca de Óleo - R$ 50,00</option>
+                                    <option value="120">Troca de Pastilha - R$ 120,00</option>
+                                    <option value="80">Ajuste de Corrente - R$ 80,00</option>
+                                    <option value="250">Revisão Geral - R$ 250,00</option>
+                                </select>
+                                <button class="btn-small" onclick="addServicoNaLista()">Adicionar</button>
+                            </div>
+                            <ul id="listaServicosOS" class="lista-servicos">
+                                </ul>
+                            <div class="total-os">Total Estimado: R$ <span id="totalOSValue">0,00</span></div>
+                        </div>
+
+                        <div class="wizard-footer">
+                            <button class="btn-secondary" onclick="fecharNovaOS()">Cancelar</button>
+                            <button class="btn-success" onclick="salvarOS()">Gerar OS</button>
+                        </div>
+                    </div>
+
+                    <br>
+                    <h4>Histórico de OS</h4>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nº OS</th>
+                                <th>Veículo</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaMecanica">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="sec-financeiro" class="page-section">
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-info">
+                            <small>Faturamento Bruto</small>
+                            <h3>R$ 450.000</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-info">
+                            <small>Custo de Estoque</small>
+                            <h3>R$ 380.000</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card highlight-profit">
+                        <div class="kpi-info">
+                            <small>LUCRO LÍQUIDO</small>
+                            <h3>R$ 70.000</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-box">
+                    <h3>Auditoria de Vendas (Aguardando Aprovação)</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Veículo</th>
+                                <th>Pagamento</th>
+                                <th>Comprovante</th>
+                                <th>Lucro da Venda</th> <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaAuditoria">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+             <section id="sec-equipe" class="page-section">
+                <div class="panel-box">
+                    <div class="panel-header">
+                        <h3>Gestão de Colaboradores</h3>
+                        <button class="btn-primary">+ Novo Colaborador</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Matrícula</th>
+                                <th>Nome</th>
+                                <th>Cargo</th>
+                                <th>Supervisor</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1001</td>
+                                <td>Davi Emanuel</td>
+                                <td>Vendedor</td>
+                                <td>Carlos (Sup)</td>
+                                <td><button class="btn-small">Editar</button></td>
+                            </tr>
+                             <tr>
+                                <td>1002</td>
+                                <td>Ana Souza</td>
+                                <td>Vendedor</td>
+                                <td>Carlos (Sup)</td>
+                                <td><button class="btn-small">Editar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+             </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
