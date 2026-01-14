@@ -18,16 +18,24 @@
         <div class="login-box">
             <div class="brand-login"><i class="fa-solid fa-location-dot"></i> PORTAL FACILITA</div>
             <h3>Acesso ao Sistema</h3>
-            <form id="formLogin">
+            <form id="formLogin" onsubmit="event.preventDefault(); fazerLoginManual();">
                 <div class="input-group">
-                    <label>Usuário (Ex: vendedor, gerente, mecanica, financeiro)</label>
+                    <label>Módulo de Acesso</label>
+                    <select id="moduloSelect"
+                        style="width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:15px;">
+                        <option value="vendas">Gestão de Vendas (Loja)</option>
+                        <option value="mecanica">Gestão de Oficina (Mecânica)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Usuário (Ex: vendedor, gerente, financeiro)</label>
                     <input type="text" id="loginUser" required>
                 </div>
                 <div class="input-group">
-                    <label>Senha (Qualquer uma)</label>
+                    <label>Senha</label>
                     <input type="password" id="loginPass" required>
                 </div>
-                <button type="submit" class="btn-login">ENTRAR NO SISTEMA</button>
+                <button type="submit" class="btn-login">ACESSAR SISTEMA</button>
             </form>
         </div>
     </div>
@@ -97,18 +105,30 @@
                 <div class="panel-box">
                     <div class="panel-header">
                         <h3>Estoque Disponível</h3>
-                        <input type="text" placeholder="Buscar placa, modelo..." class="search-input"
-                            onkeyup="filtrarEstoque(this.value)">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" placeholder="Buscar placa, modelo, chassi..." class="search-input"
+                                onkeyup="filtrarEstoque(this.value)">
+                            <select class="search-input" id="filtroDias" onchange="filtrarPorDias(this.value)"
+                                style="width: 150px;">
+                                <option value="todos">Todos os Dias</option>
+                                <option value="antigos">+60 Dias (Antigos)</option>
+                                <option value="recentes">-30 Dias (Novos)</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Placa</th>
-                                    <th>Modelo/Cor</th>
-                                    <th>Ano</th>
+                                    <th>Veículo/Placa</th>
+                                    <th>Cor/Combustível</th>
+                                    <th>Chassi</th>
+                                    <th>Ano (Fab/Mod)</th>
+                                    <th>KM</th>
+                                    <th>Local</th>
+                                    <th>Dias Est.</th>
                                     <th>Valor</th>
-                                    <th>Status</th>
+                                    <th>Status/Qtd</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -182,38 +202,31 @@
                     </div>
 
                     <div class="wizard-step" id="sol-step2">
-                        <div class="docs-container">
-                            <div class="doc-preview contract-theme">
-                                <div class="doc-header">CONTRATO DE COMPRA E VENDA</div>
+                        <div class="docs-container" style="justify-content: center;">
+                            <div class="doc-preview contract-theme" style="max-width: 800px; width: 100%;">
+                                <div class="doc-header">
+                                    <h2>CONTRATO DE COMPRA E VENDA DE VEÍCULO</h2>
+                                    <p style="font-size: 0.9rem; font-weight: normal; text-transform: none;">INSTRUMENTO
+                                        PARTICULAR</p>
+                                </div>
                                 <div id="contractBody" class="doc-body">
                                 </div>
                                 <div class="signatures">
-                                    <div class="sig-line">Assinatura do Cliente</div>
-                                    <div class="sig-line">Assinatura Facilita Veículos</div>
+                                    <div class="sig-line">
+                                        <span id="sigVendedorName">FACILITA VEÍCULOS LTDA</span><br>
+                                        <small>VENDEDOR</small>
+                                    </div>
+                                    <div class="sig-line">
+                                        <span id="sigClienteName">CLIENTE</span><br>
+                                        <small>COMPRADOR</small>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="doc-preview receipt-theme paper-cut">
-                                <div class="receipt-header">
-                                    <h4>FACILITA VEÍCULOS LTDA</h4>
-                                    <small>CNPJ: 12.345.678/0001-99</small><br>
-                                    <small>Av. Fernandes Lima, 100 - Farol</small>
-                                </div>
-                                <hr class="dashed">
-                                <div style="text-align: center; font-weight: bold;">COMPROVANTE NÃO FISCAL</div>
-                                <hr class="dashed">
-                                <div id="receiptBody">
-                                </div>
-                                <hr class="dashed">
-                                <div class="receipt-total">TOTAL R$ <span id="receiptTotal">0,00</span></div>
-                                <hr class="dashed">
-                                <div style="text-align: center; font-size: 0.8rem;">Obrigado pela preferência!</div>
                             </div>
                         </div>
 
                         <div class="wizard-footer">
                             <button class="btn-secondary" onclick="proximoPasso(1)">Voltar</button>
-                            <button class="btn-primary" onclick="proximoPasso(3)">Confirmar Documentos <i
+                            <button class="btn-primary" onclick="proximoPasso(3)">Confirmar Contrato <i
                                     class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
@@ -365,30 +378,6 @@
                 </div>
             </section>
 
-            <section id="sec-mecanica" class="page-section">
-                <div class="panel-box">
-                    <div class="panel-header">
-                        <h3>Ordens de Serviço (OS)</h3>
-                        <button class="btn-primary" onclick="abrirModalNovaOS()">+ Nova OS</button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Nº OS</th>
-                                    <th>Veículo</th>
-                                    <th>Data Entrega</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabelaOS"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
             <section id="sec-equipe" class="page-section">
                 <div class="panel-box">
                     <div class="panel-header">
@@ -415,65 +404,109 @@
         </main>
     </div>
 
-    <div id="modalOS" class="modal-overlay-inner" style="display: none;">
-        <div class="modal-box large-modal">
+    <div id="modalAuditoria" class="modal-overlay-inner" style="display: none;">
+        <div class="modal-box large-modal"
+            style="width: 95%; max-width: 1000px; height: 95vh; display:flex; flex-direction:column;">
             <div class="modal-header">
-                <h4 id="modalOSTitle">Nova Ordem de Serviço</h4>
-                <button class="close-btn" onclick="fecharModalOS()"><i class="fa-solid fa-xmark"></i></button>
+                <h4 id="modalAuditTitle">Auditoria de Venda - Conferência Completa</h4>
+                <button class="close-btn" onclick="fecharModalAuditoria()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-body">
-                <div class="form-grid-2">
-                    <div class="ig"><label>Cliente/Contato</label><input type="text" id="osClienteInput"></div>
-                    <div class="ig"><label>Veículo/Placa</label><input type="text" id="osVeiculoInput"></div>
-                </div>
 
-                <div class="ig" style="margin-top: 10px;">
-                    <label>Data Prevista Entrega</label>
-                    <input type="date" id="osDataEntrega">
-                </div>
+            <div class="modal-body" style="background: #f4f6f9; padding: 20px; overflow-y: auto;">
 
-                <div id="osAddServicesArea">
-                    <hr>
-                    <h5>Adicionar Serviços</h5>
-                    <div class="add-service-row">
-                        <select id="selServicoOS">
-                            <option value="">Selecione um serviço...</option>
-                        </select>
-                        <button class="btn-secondary" onclick="addServicoNaListaBtn()">Adicionar</button>
+                <div class="sol-block"
+                    style="background:white; padding:20px; border-radius:10px; margin-bottom:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                    <h4
+                        style="color:var(--primary); border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:15px;">
+                        1. Dados do Cliente e Endereço</h4>
+                    <div class="form-grid-2">
+                        <div class="ig"><label>Nome Completo</label><input type="text" id="auditNome" readonly
+                                class="bg-gray"></div>
+                        <div class="ig"><label>CPF</label><input type="text" id="auditCPF" readonly class="bg-gray">
+                        </div>
+                        <div class="ig"><label>RG</label><input type="text" id="auditRG" readonly class="bg-gray"></div>
+                        <div class="ig"><label>Email</label><input type="text" id="auditEmail" readonly class="bg-gray">
+                        </div>
+                        <div class="ig"><label>Telefone</label><input type="text" id="auditTel" readonly
+                                class="bg-gray"></div>
+                        <div class="ig full"><label>Endereço Completo</label><input type="text" id="auditEnd" readonly
+                                class="bg-gray"></div>
                     </div>
                 </div>
 
-                <div class="lista-servicos-box">
-                    <table class="data-table mini-table">
-                        <thead>
-                            <tr>
-                                <th>Serviço</th>
-                                <th>Valor</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="listaServicosAdd"></tbody>
-                    </table>
+                <div class="sol-block"
+                    style="background:white; padding:20px; border-radius:10px; margin-bottom:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                    <h4
+                        style="color:var(--primary); border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:15px;">
+                        2. Condições de Pagamento e Troca</h4>
+                    <div class="form-grid-3">
+                        <div class="ig"><label>Modalidade</label><input type="text" id="auditPgForma" readonly
+                                class="bg-gray bold text-blue"></div>
+                        <div class="ig"><label>Banco/Financeira</label><input type="text" id="auditPgBanco" readonly
+                                class="bg-gray"></div>
+                        <div class="ig"><label>Valor Entrada</label><input type="text" id="auditPgEntrada" readonly
+                                class="bg-gray"></div>
+
+                        <div class="ig"><label>Veículo Troca (Modelo)</label><input type="text" id="auditTrocaModelo"
+                                readonly class="bg-gray"></div>
+                        <div class="ig"><label>Placa Troca</label><input type="text" id="auditTrocaPlaca" readonly
+                                class="bg-gray"></div>
+                        <div class="ig"><label>Valor Avaliação Troca</label><input type="text" id="auditTrocaValor"
+                                readonly class="bg-gray"></div>
+                    </div>
                 </div>
 
-                <div class="os-total-area">
-                    Total Estimado: R$ <span id="osTotalDisplay">0,00</span>
+                <div class="sol-block"
+                    style="background:white; padding:20px; border-radius:10px; margin-bottom:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                    <h4
+                        style="color:var(--primary); border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:15px;">
+                        3. Documentação Anexa</h4>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="flex: 1;">
+                            <label style="font-weight:bold; margin-bottom:5px; display:block;">Anexar Comprovante / Doc
+                                (PDF/IMG):</label>
+                            <input type="file" id="auditArquivo"
+                                style="padding: 10px; border: 1px dashed #ccc; width: 100%;">
+                        </div>
+                        <button class="btn-secondary btn-small" onclick="alert('Documento visualizado (Simulação)!')"><i
+                                class="fa-solid fa-eye"></i> Visualizar Anexo</button>
+                    </div>
                 </div>
 
-                <div id="osAuditArea"
-                    style="display:none; margin-top: 20px; padding: 15px; background: #fff3e0; border: 1px solid #ffe0b2;">
-                    <strong>Auditoria:</strong> Esta OS está pendente de cancelamento.
-                    <div style="margin-top: 10px;">
-                        <button class="btn-danger" onclick="auditarCancelamentoOS(true)">Aprovar Cancelamento</button>
-                        <button class="btn-secondary" onclick="auditarCancelamentoOS(false)">Rejeitar</button>
+                <div class="sol-block"
+                    style="background:white; padding:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                    <h4
+                        style="color:var(--primary); border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:15px;">
+                        4. Conferência do Contrato (Minuta)</h4>
+                    <div class="doc-preview contract-theme"
+                        style="width: 100%; border:1px solid #ddd; padding:40px; transform: scale(0.95); transform-origin: top center;">
+                        <div class="doc-header">
+                            <h2>CONTRATO DE COMPRA E VENDA DE VEÍCULO</h2>
+                            <p style="font-size: 0.9rem; font-weight: normal; text-transform: none;">INSTRUMENTO
+                                PARTICULAR</p>
+                        </div>
+                        <div id="auditContractBody" class="doc-body">
+                        </div>
+                        <div class="signatures">
+                            <div class="sig-line">
+                                <span>FACILITA VEÍCULOS LTDA</span><br>
+                                <small>VENDEDOR</small>
+                            </div>
+                            <div class="sig-line">
+                                <span id="auditSigCliente">CLIENTE</span><br>
+                                <small>COMPRADOR</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
-            <div class="modal-footer">
-                <button class="btn-danger" id="btnCancelarOS" style="display:none;"
-                    onclick="solicitarCancelamentoOS()">Solicitar Cancelamento</button>
-                <button class="btn-success" id="btnSalvarOS" onclick="salvarOS()">Gerar OS</button>
+
+            <div class="modal-footer"
+                style="justify-content: space-between; background: #fff; border-top: 2px solid #eee;">
+                <button class="btn-danger" onclick="reprovarVendaFinanceiro()">REPROVAR / CORRIGIR</button>
+                <button class="btn-success" onclick="confirmarAprovacaoFinanceiro()">APROVAR VENDA DEFINITIVA <i
+                        class="fa-solid fa-check-double"></i></button>
             </div>
         </div>
     </div>
