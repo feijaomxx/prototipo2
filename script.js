@@ -1,25 +1,19 @@
+/* DADOS DO SISTEMA */
 let equipeData = [
     { matricula: 1001, nome: "Davi Emanuel", cpf: "000.000.000-00", cargo: "Vendedor", status: "Ativo", supervisor: "Carlos (Sup)" },
     { matricula: 1002, nome: "Ana Souza", cpf: "111.111.111-11", cargo: "Vendedor", status: "Ativo", supervisor: "Carlos (Sup)" },
     { matricula: 2001, nome: "Pedro Mecânico", cpf: "222.222.222-22", cargo: "Mecânico", status: "Férias", supervisor: "Roberto (Gerente)" }
 ];
 
+/* ESTOQUE DETALHADO */
 let estoque = [
-    { id: 1, placa: "ABC-1234", modelo: "Honda CB 500F (Vermelha)", ano: 2024, valor: 38500, custo: 32000, status: "Disponível" },
-    { id: 2, placa: "OXY-9988", modelo: "Yamaha XJ6 N (Preta)", ano: 2023, valor: 42900, custo: 36000, status: "Disponível" },
-    { id: 3, placa: "KLE-5544", modelo: "Honda Biz 125 (Branca)", ano: 2025, valor: 16200, custo: 13500, status: "Disponível" },
-    { id: 4, placa: "BMW-0011", modelo: "BMW G310 R (Azul)", ano: 2024, valor: 34500, custo: 29000, status: "Disponível" },
-    { id: 5, placa: "HGT-7722", modelo: "Kawasaki Ninja 400 (Verde)", ano: 2023, valor: 39000, custo: 33000, status: "Disponível" },
-    { id: 6, placa: "JUI-1020", modelo: "Honda CG 160 Titan (Azul)", ano: 2025, valor: 18500, custo: 15000, status: "Reservado" },
-    { id: 7, placa: "POP-3344", modelo: "Honda Pop 110i (Vermelha)", ano: 2024, valor: 10500, custo: 8000, status: "Disponível" },
-    { id: 8, placa: "XRE-5511", modelo: "Honda XRE 300 (Sahara)", ano: 2023, valor: 28900, custo: 24000, status: "Disponível" },
-    { id: 9, placa: "MTZ-0707", modelo: "Yamaha MT-07 (Cinza)", ano: 2024, valor: 46500, custo: 40000, status: "Disponível" },
-    { id: 10, placa: "TRI-9000", modelo: "Triumph Trident 660 (Branca)", ano: 2023, valor: 49900, custo: 43000, status: "Disponível" },
-    { id: 11, placa: "NCX-7500", modelo: "Honda NC 750X (Vermelha)", ano: 2024, valor: 52000, custo: 45000, status: "Disponível" },
-    { id: 12, placa: "ADV-1500", modelo: "Honda ADV 150 (Verde)", ano: 2025, valor: 23500, custo: 19500, status: "Disponível" },
-    { id: 13, placa: "FAZ-2500", modelo: "Yamaha Fazer 250 (Azul)", ano: 2024, valor: 21900, custo: 18000, status: "Disponível" },
-    { id: 14, placa: "ROY-3500", modelo: "Royal Enfield Meteor 350", ano: 2023, valor: 26000, custo: 21500, status: "Reservado" },
-    { id: 15, placa: "ELT-1000", modelo: "Voltz EVS (Elétrica)", ano: 2025, valor: 22000, custo: 17000, status: "Disponível" }
+    { id: 1, marca: "Honda", modelo: "CB 500F", cor: "Vermelha", chassi: "9C2PC123456", anoFab: 2024, anoMod: 2024, km: 0, dataEntrada: "2024-11-01", local: "Matriz", combustivel: "Gasolina", valor: 38500, custo: 32000, qtd: 1, status: "Disponível", placa: "ABC-1234" },
+    { id: 2, marca: "Yamaha", modelo: "XJ6 N", cor: "Preta", chassi: "9C6KJ987654", anoFab: 2023, anoMod: 2023, km: 12000, dataEntrada: "2024-12-15", local: "Filial 1", combustivel: "Gasolina", valor: 42900, custo: 36000, qtd: 1, status: "Disponível", placa: "OXY-9988" },
+    { id: 3, marca: "Honda", modelo: "Biz 125", cor: "Branca", chassi: "9C2JC000111", anoFab: 2025, anoMod: 2025, km: 0, dataEntrada: "2025-01-05", local: "Matriz", combustivel: "Flex", valor: 16200, custo: 13500, qtd: 2, status: "Disponível", placa: "KLE-5544" },
+    { id: 4, marca: "BMW", modelo: "G310 R", cor: "Azul", chassi: "WB100022233", anoFab: 2024, anoMod: 2024, km: 3500, dataEntrada: "2024-10-10", local: "Matriz", combustivel: "Gasolina", valor: 34500, custo: 29000, qtd: 1, status: "Disponível", placa: "BMW-0011" },
+    { id: 5, marca: "Kawasaki", modelo: "Ninja 400", cor: "Verde", chassi: "95K00099887", anoFab: 2023, anoMod: 2023, km: 15000, dataEntrada: "2024-05-20", local: "Matriz", combustivel: "Gasolina", valor: 39000, custo: 33000, qtd: 1, status: "Disponível", placa: "HGT-7722" },
+    { id: 6, marca: "Honda", modelo: "CG 160 Titan", cor: "Azul", chassi: "9C2CG160000", anoFab: 2025, anoMod: 2025, km: 0, dataEntrada: "2025-01-12", local: "Matriz", combustivel: "Flex", valor: 18500, custo: 15000, qtd: 1, status: "Reservado", placa: "JUI-1020" },
+    { id: 15, marca: "Voltz", modelo: "EVS", cor: "Cinza", chassi: "95V00012345", anoFab: 2025, anoMod: 2025, km: 0, dataEntrada: "2025-01-10", local: "Filial 2", combustivel: "Elétrico", valor: 22000, custo: 17000, qtd: 3, status: "Disponível", placa: "ELT-1000" }
 ];
 
 let rankingData = [
@@ -53,26 +47,36 @@ let currentUser = null;
 let veiculoSelecionado = null;
 let servicosTempOS = [];
 let osEmEdicaoID = null;
+let leadEmAuditoriaID = null;
 
+/* FUNÇÕES GERAIS */
 function gerarLeadsFicticios() {
     const nomes = ["Lucas Silva", "Maria Oliveira", "Pedro Santos", "Julia Lima", "Fernanda Costa", "Rafael Souza", "Bruno Alves", "Carla Dias", "Marcos Rocha", "Bianca Melo"];
     const statusOpts = ["Pendente", "Análise Crédito", "Aguardando PIX"];
     const pagtoOpts = ["Financiamento", "PIX", "Consórcio", "Cartão"];
-
     for (let i = 0; i < 30; i++) {
         const veiculoRandom = estoque[Math.floor(Math.random() * estoque.length)];
         const vendedorLead = i % 2 === 0 ? "Davi Emanuel" : "Ana Souza";
-
         leadsFinanceiro.push({
             id: 2000 + i,
             data: new Date(2025, 0, i + 1).toLocaleDateString('pt-BR'),
             vendedor: vendedorLead,
             cliente: nomes[i % 10] + " " + String.fromCharCode(65 + i),
+            cpf: "000.000.000-00",
+            rg: "0000000",
+            email: "exemplo@email.com",
+            telefone: "(82) 99999-9999",
+            endereco: "Rua Fictícia, 123 - Centro, Maceió/AL",
             veiculo: veiculoRandom.modelo,
             placa: veiculoRandom.placa,
             valor: veiculoRandom.valor,
             custo: veiculoRandom.custo,
             pagamento: pagtoOpts[i % 4],
+            banco: "Santander",
+            entrada: 0,
+            trocaPlaca: "",
+            trocaModelo: "",
+            trocaValor: 0,
             status: statusOpts[i % 3]
         });
     }
@@ -80,35 +84,43 @@ function gerarLeadsFicticios() {
 gerarLeadsFicticios();
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Carrega serviços no select
     const selServico = document.getElementById('selServicoOS');
     if (selServico) {
         tabelaServicos.forEach(s => {
             selServico.innerHTML += `<option value="${s.id}">${s.nome} - R$ ${s.valor.toFixed(2)}</option>`;
         });
     }
-
-    const formLogin = document.getElementById('formLogin');
-    if (formLogin) {
-        formLogin.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const userInp = document.getElementById('loginUser');
-            if (userInp) {
-                const u = userInp.value.toLowerCase();
-                if (u) login(u);
-            }
-        });
-    }
+    const loginUser = document.getElementById('loginUser');
+    if (loginUser) loginUser.focus();
 });
+
+function fazerLoginManual() {
+    const userInp = document.getElementById('loginUser');
+    const modulo = document.getElementById('moduloSelect').value;
+
+    if (userInp && userInp.value) {
+        const u = userInp.value.toLowerCase().trim();
+
+        if (modulo === 'mecanica') {
+            // Redireciona para o novo arquivo
+            window.location.href = `mecanica.html?user=${u}`;
+        } else {
+            // Loga no sistema de vendas normal
+            login(u);
+        }
+    } else {
+        alert("Por favor, digite um usuário.");
+    }
+}
 
 function login(role) {
     currentUser = role;
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('appLayout').style.display = 'flex';
-
     const nomes = { 'vendedor': 'Davi E.', 'gerente': 'Roberto G.', 'mecanica': 'Oficina Central', 'financeiro': 'Ana Fin.' };
     document.getElementById('menuUserNome').innerText = nomes[role] || role.toUpperCase();
     document.getElementById('menuUserCargo').innerText = role.charAt(0).toUpperCase() + role.slice(1);
-
     montarMenu(role);
     atualizarFinanceiroAvancado();
     atualizarTodasTabelas();
@@ -180,50 +192,49 @@ function renderizarRanking() {
     });
 }
 
+// Helper para calcular dias
+function calcularDiasEstoque(dataEntrada) {
+    const entrada = new Date(dataEntrada);
+    const hoje = new Date();
+    const diffTime = Math.abs(hoje - entrada);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+}
+
 function filtrarEstoque(txt) {
     const rows = document.querySelectorAll('#tabelaEstoque tr');
     rows.forEach(r => r.style.display = r.innerText.toLowerCase().includes(txt.toLowerCase()) ? '' : 'none');
 }
 
+/* ATUALIZAÇÃO DAS TABELAS (ESTOQUE DETALHADO) */
 function atualizarTodasTabelas() {
     const tbEst = document.getElementById('tabelaEstoque');
     if (tbEst) {
         tbEst.innerHTML = '';
         estoque.forEach(v => {
+            let dias = calcularDiasEstoque(v.dataEntrada);
             let btn = '';
-            let stClass = v.status === 'Disponível' ? 'st-disp' : 'st-res';
+            let stClass = v.status === 'Disponível' ? 'st-disp' : (v.status === 'Reservado' ? 'st-res' : 'st-vend');
+
             if (v.status === 'Disponível' && currentUser && (currentUser.includes('vendedor') || currentUser.includes('gerente'))) {
                 btn = `<button class="btn-primary btn-small" onclick="iniciarVendaWizard(${v.id})"><i class="fa-solid fa-cart-plus"></i> VENDER</button>`;
+            } else if (v.qtd === 0) {
+                btn = `<button class="btn-secondary btn-small" disabled>ESGOTADO</button>`;
             }
+
             tbEst.innerHTML += `
                 <tr>
-                    <td><strong>${v.placa}</strong></td>
-                    <td>${v.modelo}</td>
-                    <td>${v.ano}</td>
-                    <td>R$ ${v.valor.toLocaleString('pt-BR')}</td>
-                    <td><span class="status-pill ${stClass}">${v.status}</span></td>
+                    <td><strong>${v.marca}</strong> ${v.modelo}<br><small style="color:#666">${v.placa}</small></td>
+                    <td>${v.cor}<br><small>${v.combustivel}</small></td>
+                    <td><small>${v.chassi}</small></td>
+                    <td>${v.anoFab}/${v.anoMod}</td>
+                    <td>${v.km === 0 ? '0km (Nova)' : v.km + ' km'}</td>
+                    <td>${v.local}</td>
+                    <td><span style="${dias > 60 ? 'color:red; font-weight:bold' : ''}">${dias} dias</span></td>
+                    <td style="font-weight:bold; color:var(--primary)">R$ ${v.valor.toLocaleString('pt-BR')}</td>
+                    <td><span class="status-pill ${stClass}">${v.status}</span><br><small>Restam: ${v.qtd}</small></td>
                     <td>${btn}</td>
                 </tr>`;
-        });
-    }
-
-    const tbMinhas = document.getElementById('tabelaMinhasVendas');
-    if (tbMinhas) {
-        tbMinhas.innerHTML = '';
-        minhasVendas.forEach((v, index) => {
-            let acao = '';
-            if (v.status !== 'Cancelado' && v.status !== 'Em análise de cancelamento') {
-                acao = `<button class="btn-small btn-danger" onclick="solicitarCancelamento(${index})">X</button>`;
-            }
-            tbMinhas.innerHTML += `
-            <tr>
-                <td>#${v.id}</td>
-                <td>${v.veiculoModelo}</td>
-                <td>${v.clienteNome}</td>
-                <td>R$ ${v.valor.toLocaleString('pt-BR')}</td>
-                <td><span class="status-pill st-vend">${v.status}</span></td>
-                <td>${acao}</td>
-            </tr>`;
         });
     }
 
@@ -231,6 +242,7 @@ function atualizarTodasTabelas() {
     if (tbLeads) {
         tbLeads.innerHTML = '';
         leadsFinanceiro.forEach((l, i) => {
+            // Agora o botão chama "abrirAuditoria" em vez de "aprovarLead"
             tbLeads.innerHTML += `
                 <tr>
                     <td>${l.data}</td>
@@ -241,18 +253,30 @@ function atualizarTodasTabelas() {
                     <td>${l.pagamento}</td>
                     <td><span class="status-pill st-analise">${l.status}</span></td>
                     <td>
-                        <button class="btn-success btn-small" onclick="aprovarLead(${i})"><i class="fa-solid fa-check"></i></button>
-                        <button class="btn-danger btn-small" onclick="alert('Lead recusado!')"><i class="fa-solid fa-xmark"></i></button>
+                        <button class="btn-secondary btn-small" onclick="abrirAuditoria(${i})" title="Auditar Venda"><i class="fa-solid fa-eye"></i></button>
                     </td>
                 </tr>`;
         });
     }
 
+    // (Outras tabelas mantidas)...
+    const tbMinhas = document.getElementById('tabelaMinhasVendas');
+    if (tbMinhas) {
+        tbMinhas.innerHTML = '';
+        minhasVendas.forEach((v, index) => {
+            let acao = '';
+            if (v.status !== 'Cancelado' && v.status !== 'Em análise de cancelamento') {
+                acao = `<button class="btn-small btn-danger" onclick="solicitarCancelamento(${index})">X</button>`;
+            }
+            tbMinhas.innerHTML += `<tr><td>#${v.id}</td><td>${v.veiculoModelo}</td><td>${v.clienteNome}</td><td>R$ ${v.valor.toLocaleString('pt-BR')}</td><td><span class="status-pill st-vend">${v.status}</span></td><td>${acao}</td></tr>`;
+        });
+    }
     renderizarTabelaOS();
     renderizarEquipe();
     renderizarRanking();
 }
 
+/* WIZARD DE VENDA */
 function iniciarVendaWizard(id) {
     veiculoSelecionado = estoque.find(v => v.id === id);
     if (!veiculoSelecionado) return;
@@ -303,40 +327,78 @@ function buscarCEP() {
 
 function gerarDocumentosVisuais() {
     if (!veiculoSelecionado) return;
-    const cli = document.getElementById('cliNome').value;
+    const cli = document.getElementById('cliNome').value.toUpperCase();
     const cpf = document.getElementById('cliCPF').value;
-    const end = `${document.getElementById('endRua').value}, ${document.getElementById('endNum').value}, ${document.getElementById('endCidade').value}`;
+    const rg = document.getElementById('cliRG').value || "N/I";
+    const end = `${document.getElementById('endRua').value}, ${document.getElementById('endNum').value} - ${document.getElementById('endBairro').value}, ${document.getElementById('endCidade').value}`;
     const val = veiculoSelecionado.valor.toLocaleString('pt-BR');
-    const dataHoje = new Date().toLocaleDateString('pt-BR');
-    document.getElementById('contractBody').innerHTML = `
-        <p>Pelo presente instrumento, <strong>FACILITA VEÍCULOS LTDA</strong>, vende para <strong>${cli.toUpperCase()}</strong>, inscrito no CPF <strong>${cpf}</strong>, residente em <strong>${end}</strong>.</p>
-        <p><strong>Objeto:</strong> Veículo ${veiculoSelecionado.modelo}, Placa ${veiculoSelecionado.placa}.</p>
-        <p><strong>Valor:</strong> R$ ${val} (Valor por extenso), a ser pago conforme condições acordadas.</p>
-        <p>O veículo é entregue no estado em que se encontra. Maceió - AL, ${dataHoje}.</p>
+    const dataHoje = new Date();
+
+    // Gera o contrato no Wizard (para o vendedor ver)
+    const contractDiv = document.getElementById('contractBody');
+    if (contractDiv) {
+        contractDiv.innerHTML = gerarHtmlContrato(cli, cpf, rg, end, val, veiculoSelecionado, dataHoje);
+    }
+}
+
+// Função auxiliar para gerar o HTML do contrato (reaproveitada na Auditoria)
+function gerarHtmlContrato(nome, cpf, rg, endereco, valor, veiculo, data) {
+    const dia = data.getDate();
+    const mes = data.toLocaleString('pt-BR', { month: 'long' });
+    const ano = data.getFullYear();
+
+    return `
+        <p style="text-align:center; font-weight:bold; margin-bottom:20px;">INSTRUMENTO PARTICULAR DE COMPRA E VENDA DE VEÍCULO</p>
+        <p><strong>VENDEDOR:</strong> FACILITA VEÍCULOS LTDA, pessoa jurídica de direito privado, inscrita no CNPJ sob o nº 12.345.678/0001-99, com sede em Av. Fernandes Lima, 100 - Farol, Maceió/AL.</p>
+        <p><strong>COMPRADOR:</strong> <strong>${nome}</strong>, inscrito(a) no CPF nº ${cpf}, RG nº ${rg}, residente e domiciliado(a) em ${endereco}.</p>
+        <p style="margin-top:15px;"><strong>CLÁUSULA 1ª - DO OBJETO</strong></p>
+        <p>O Vendedor vende ao Comprador o veículo de sua propriedade, com as seguintes características:</p>
+        <ul style="list-style: none; padding-left: 20px; font-size: 0.95rem;">
+            <li><strong>Marca/Modelo:</strong> ${veiculo.marca ? veiculo.marca.toUpperCase() : ''} / ${veiculo.modelo.toUpperCase()}</li>
+            <li><strong>Ano Fab/Mod:</strong> ${veiculo.anoFab || 'N/A'} / ${veiculo.anoMod || 'N/A'}</li>
+            <li><strong>Cor:</strong> ${veiculo.cor ? veiculo.cor.toUpperCase() : 'N/A'}</li>
+            <li><strong>Chassi:</strong> ${veiculo.chassi || 'N/A'}</li>
+            <li><strong>Placa:</strong> ${veiculo.placa}</li>
+            <li><strong>Combustível:</strong> ${veiculo.combustivel || 'N/A'}</li>
+            <li><strong>Quilometragem:</strong> ${veiculo.km || 0} KM</li>
+        </ul>
+        <p style="margin-top:15px;"><strong>CLÁUSULA 2ª - DO PREÇO E PAGAMENTO</strong></p>
+        <p>O preço certo e ajustado é de <strong>R$ ${valor}</strong> (Reais).</p>
+        <p style="margin-top:15px;"><strong>CLÁUSULA 3ª - DAS CONDIÇÕES GERAIS</strong></p>
+        <p>O Comprador declara ter examinado o veículo, aceitando-o no estado de conservação em que se encontra.</p>
+        <p style="margin-top:30px; text-align: center;">Maceió - AL, ${dia} de ${mes} de ${ano}.</p>
     `;
-    document.getElementById('receiptBody').innerHTML = `
-        <div class="receipt-item"><span>DATA:</span><span>${dataHoje}</span></div>
-        <hr class="dashed">
-        <div class="receipt-item"><span>CLIENTE:</span><span>${cli.substring(0, 15)}...</span></div>
-        <hr class="dashed">
-        <div class="receipt-item"><span>VEÍCULO:</span><span>${veiculoSelecionado.modelo}</span></div>
-        <div class="receipt-item"><span>PLACA:</span><span>${veiculoSelecionado.placa}</span></div>
-        <div class="receipt-item"><span>VALOR UNIT.:</span><span>R$ ${val}</span></div>
-    `;
-    document.getElementById('receiptTotal').innerText = val;
 }
 
 function finalizarVendaWizard() {
     if (!veiculoSelecionado) return;
+    // Captura dados completos para auditoria posterior
     const novoLead = {
         id: Date.now(),
         vendedor: document.getElementById('solVendedor').value,
-        cliente: document.getElementById('cliNome').value,
+        cliente: document.getElementById('cliNome').value.toUpperCase(),
+        cpf: document.getElementById('cliCPF').value,
+        rg: document.getElementById('cliRG').value || "N/I",
+        email: document.getElementById('cliEmail').value || "N/I",
+        telefone: document.getElementById('cliTel').value || "N/I",
+        endereco: `${document.getElementById('endRua').value}, ${document.getElementById('endNum').value} - ${document.getElementById('endBairro').value}, ${document.getElementById('endCidade').value}`,
+
         veiculo: veiculoSelecionado.modelo,
+        placa: veiculoSelecionado.placa, // Chave para buscar detalhes depois
+
         pagamento: document.getElementById('pgForma').value,
+        banco: document.getElementById('pgBanco').value || "N/A",
+        entrada: document.getElementById('pgEntrada').value || "0",
+
+        trocaPlaca: document.getElementById('trocaPlaca').value || "-",
+        trocaModelo: document.getElementById('trocaModelo').value || "-",
+        trocaValor: document.getElementById('trocaValor').value || "0",
+
         valor: veiculoSelecionado.valor,
-        custo: veiculoSelecionado.custo
+        custo: veiculoSelecionado.custo,
+        status: "Análise Crédito" // Começa pendente
     };
+
     leadsFinanceiro.push(novoLead);
     veiculoSelecionado.status = "Reservado";
     alert("Solicitação de Venda enviada com sucesso para o Financeiro!");
@@ -345,8 +407,56 @@ function finalizarVendaWizard() {
     navegar('sec-estoque');
 }
 
-function aprovarLead(index) {
+/* --- AUDITORIA DE VENDAS (FINANCEIRO) --- */
+
+function abrirAuditoria(index) {
+    leadEmAuditoriaID = index;
     const lead = leadsFinanceiro[index];
+
+    // Busca detalhes técnicos do carro no estoque usando a placa
+    const carroDetalhes = estoque.find(c => c.placa === lead.placa) || { modelo: lead.veiculo, placa: lead.placa, valor: lead.valor };
+
+    // PREENCHE OS CAMPOS DO MODAL DE AUDITORIA
+    document.getElementById('auditNome').value = lead.cliente;
+    document.getElementById('auditCPF').value = lead.cpf;
+    document.getElementById('auditRG').value = lead.rg;
+    document.getElementById('auditEmail').value = lead.email;
+    document.getElementById('auditTel').value = lead.telefone;
+    document.getElementById('auditEnd').value = lead.endereco;
+
+    document.getElementById('auditPgForma').value = lead.pagamento;
+    document.getElementById('auditPgBanco').value = lead.banco;
+    document.getElementById('auditPgEntrada').value = "R$ " + parseFloat(lead.entrada).toLocaleString('pt-BR');
+
+    document.getElementById('auditTrocaModelo').value = lead.trocaModelo;
+    document.getElementById('auditTrocaPlaca').value = lead.trocaPlaca;
+    document.getElementById('auditTrocaValor').value = "R$ " + parseFloat(lead.trocaValor).toLocaleString('pt-BR');
+
+    // Gera contrato visual para auditoria
+    const divContrato = document.getElementById('auditContractBody');
+    const valorF = lead.valor.toLocaleString('pt-BR');
+    const dataHoje = new Date();
+
+    divContrato.innerHTML = gerarHtmlContrato(lead.cliente, lead.cpf, lead.rg, lead.endereco, valorF, carroDetalhes, dataHoje);
+
+    // Atualiza assinatura
+    document.getElementById('auditSigCliente').innerText = lead.cliente;
+
+    // Abre modal
+    document.getElementById('modalAuditoria').style.display = 'flex';
+}
+
+function fecharModalAuditoria() {
+    document.getElementById('modalAuditoria').style.display = 'none';
+    leadEmAuditoriaID = null;
+}
+
+function confirmarAprovacaoFinanceiro() {
+    if (leadEmAuditoriaID === null) return;
+
+    const lead = leadsFinanceiro[leadEmAuditoriaID];
+
+    // Move para Minhas Vendas
     minhasVendas.push({
         id: lead.id,
         veiculoModelo: lead.veiculo,
@@ -354,6 +464,8 @@ function aprovarLead(index) {
         valor: lead.valor,
         status: "Concluído"
     });
+
+    // Atualiza Ranking do Vendedor
     const vendedorRank = rankingData.find(r => r.nome === lead.vendedor);
     if (vendedorRank) {
         vendedorRank.vendas += 1;
@@ -361,10 +473,37 @@ function aprovarLead(index) {
     } else {
         rankingData.push({ nome: lead.vendedor, vendas: 1, total: lead.valor });
     }
-    leadsFinanceiro.splice(index, 1);
-    alert(`Venda de ${lead.cliente} Aprovada!\nRanking e Caixa atualizados.`);
+
+    // Baixa definitiva no Estoque
+    const carroEstoque = estoque.find(c => c.placa === lead.placa);
+    if (carroEstoque) {
+        carroEstoque.qtd = 0;
+        carroEstoque.status = "Vendido";
+    }
+
+    // Remove da lista de pendências
+    leadsFinanceiro.splice(leadEmAuditoriaID, 1);
+
+    alert(`Venda Aprovada e Auditada com Sucesso!\nContrato validado.`);
+    fecharModalAuditoria();
     atualizarTodasTabelas();
     atualizarFinanceiroAvancado();
+}
+
+function reprovarVendaFinanceiro() {
+    if (leadEmAuditoriaID === null) return;
+    const motivo = prompt("Motivo da Reprovação (ex: Documento ilegível, Score baixo):");
+    if (motivo) {
+        const lead = leadsFinanceiro[leadEmAuditoriaID];
+        // Libera o carro de volta
+        const carroEstoque = estoque.find(c => c.placa === lead.placa);
+        if (carroEstoque) { carroEstoque.status = "Disponível"; }
+
+        leadsFinanceiro.splice(leadEmAuditoriaID, 1);
+        alert("Venda Reprovada. Carro voltou para 'Disponível'.");
+        fecharModalAuditoria();
+        atualizarTodasTabelas();
+    }
 }
 
 function atualizarFinanceiroAvancado() {
@@ -393,11 +532,9 @@ function renderizarTabelaOS() {
     if (!tb) return;
     tb.innerHTML = '';
     listaOS.sort((a, b) => new Date(a.dataEntrega) - new Date(b.dataEntrega));
-
     listaOS.forEach((os, index) => {
         let stClass = os.status === 'Em Aberto' ? 'st-analise' : (os.status === 'Concluído' ? 'st-vend' : (os.status.includes('Cancelamento') ? 'st-cancel-pen' : 'st-cancelado'));
         const dataFormatada = os.dataEntrega ? new Date(os.dataEntrega).toLocaleDateString('pt-BR') : 'Sem data';
-
         tb.innerHTML += `<tr>
             <td>#${os.id}</td>
             <td>${os.veiculo}</td>
@@ -452,7 +589,6 @@ function editarOS(id) {
     document.getElementById('osClienteInput').value = os.cliente;
     document.getElementById('osVeiculoInput').value = os.veiculo;
     document.getElementById('osDataEntrega').value = os.dataEntrega || '';
-
     const podeEditar = os.status === 'Em Aberto';
     const ehGerente = currentUser && currentUser.includes('gerente');
     document.getElementById('osAddServicesArea').style.display = podeEditar ? 'block' : 'none';
@@ -492,9 +628,7 @@ function salvarOS() {
     const vei = document.getElementById('osVeiculoInput').value;
     const dataEntrega = document.getElementById('osDataEntrega').value;
     const total = parseFloat(document.getElementById('osTotalDisplay').innerText.replace(',', '.'));
-
     if (!cli || !vei || servicosTempOS.length === 0) { alert("Preencha os dados e serviços!"); return; }
-
     if (osEmEdicaoID) {
         const os = listaOS.find(o => o.id === osEmEdicaoID);
         if (os) {
@@ -596,7 +730,7 @@ function solicitarCancelamento(index) {
         if (motivo) {
             venda.status = "Cancelado";
             const carroEstoque = estoque.find(c => c.modelo === venda.veiculoModelo);
-            if (carroEstoque) carroEstoque.status = "Disponível";
+            if (carroEstoque) { carroEstoque.status = "Disponível"; carroEstoque.qtd = 1; }
             alert("Venda cancelada.");
             atualizarTodasTabelas();
         }
