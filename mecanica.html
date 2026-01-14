@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Facilita - Gestão Mecânica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png"
+        href="https://www.google.com/s2/favicons?domain=facilitafinanciamento.com.br&sz=64">
+</head>
+
+<body>
+
+    <div id="appLayout" class="app-container">
+
+        <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-wrench"></i> <span>OFICINA</span>
+                <button class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="user-mini-profile">
+                <img src="https://ui-avatars.com/api/?name=Mec+User&background=333&color=fff" id="menuAvatar">
+                <div class="u-info">
+                    <strong id="menuUserNome">---</strong>
+                    <small id="menuUserCargo">Mecânica</small>
+                </div>
+            </div>
+            <nav class="menu-items">
+                <a href="#" onclick="navegar('sec-os')" class="active"><i class="fa-solid fa-clipboard-list"></i> Ordens
+                    de Serviço</a>
+                <a href="#" onclick="navegar('sec-pecas')"><i class="fa-solid fa-boxes-stacked"></i> Estoque de
+                    Peças</a>
+                <a href="#" onclick="navegar('sec-fin-mec')"><i class="fa-solid fa-cash-register"></i> Financeiro
+                    Oficina</a>
+                <a href="index.html" style="margin-top: 20px; background: #e3f2fd; color: #1565c0;"><i
+                        class="fa-solid fa-arrow-left"></i> Voltar para Vendas</a>
+            </nav>
+            <button class="btn-sair" onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-power-off"></i> Sair
+            </button>
+        </aside>
+
+        <main class="content-wrapper">
+            <header class="top-bar">
+                <div class="left-top">
+                    <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+                    <h2 id="pageTitle">Gestão de Oficina</h2>
+                </div>
+            </header>
+
+            <section id="sec-os" class="page-section active">
+                <div class="panel-box">
+                    <div class="panel-header">
+                        <h3>Ordens de Serviço em Aberto</h3>
+                        <button class="btn-primary" onclick="abrirModalNovaOS()">+ Nova OS</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nº OS</th>
+                                    <th>Cliente</th>
+                                    <th>Veículo</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaOSMecanica"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-pecas" class="page-section">
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon blue"><i class="fa-solid fa-box"></i></div>
+                        <div class="kpi-info">
+                            <h3><span id="kpiTotalPecas">0</span></h3>
+                            <p>Itens em Estoque</p>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon orange"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="kpi-info">
+                            <h3><span id="kpiPecasBaixas">0</span></h3>
+                            <p>Estoque Baixo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-box">
+                    <div class="panel-header">
+                        <h3>Controle de Peças</h3>
+                        <button class="btn-success" onclick="abrirModalEntradaPeca()">+ Entrada de Estoque</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nome da Peça</th>
+                                    <th>Qtd Atual</th>
+                                    <th>Custo Unit.</th>
+                                    <th>Preço Venda</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaPecas"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-fin-mec" class="page-section">
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon green"><i class="fa-solid fa-arrow-up"></i></div>
+                        <div class="kpi-info">
+                            <h3>R$ <span id="finMecEntradas">0,00</span></h3>
+                            <p>Faturamento (OS)</p>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon red"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="kpi-info">
+                            <h3>R$ <span id="finMecSaidas">0,00</span></h3>
+                            <p>Custos (Peças/Desp)</p>
+                        </div>
+                    </div>
+                    <div class="kpi-card highlight-profit">
+                        <div class="kpi-icon blue"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="kpi-info">
+                            <h3>R$ <span id="finMecSaldo">0,00</span></h3>
+                            <p>Lucro Líquido</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-box">
+                    <div class="panel-header">
+                        <h3>Lançamentos Recentes</h3>
+                        <button class="btn-danger" onclick="lancarDespesaAvulsa()">- Lançar Despesa Extra</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Descrição</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaFinMecanica"></tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="modalNovaOS" class="modal-overlay-inner" style="display: none;">
+        <div class="modal-box large-modal">
+            <div class="modal-header">
+                <h4>Nova Ordem de Serviço</h4>
+                <button class="close-btn" onclick="fecharModal('modalNovaOS')"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid-2">
+                    <div class="ig"><label>Nome do Cliente</label><input type="text" id="osCliNome"></div>
+                    <div class="ig"><label>Telefone</label><input type="text" id="osCliTel"></div>
+                    <div class="ig"><label>Veículo / Modelo</label><input type="text" id="osVeiculo"></div>
+                    <div class="ig"><label>Placa</label><input type="text" id="osPlaca"></div>
+                </div>
+
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+                <h5>Serviços e Peças</h5>
+                <div class="form-grid-2">
+                    <div class="ig">
+                        <label>Adicionar Serviço</label>
+                        <div style="display:flex; gap:5px;">
+                            <select id="selServico" style="flex:1;">
+                                <option value="">Selecione...</option>
+                            </select>
+                            <button class="btn-secondary btn-small" onclick="addServicoItem()">Add</button>
+                        </div>
+                    </div>
+                    <div class="ig">
+                        <label>Adicionar Peça (Estoque)</label>
+                        <div style="display:flex; gap:5px;">
+                            <select id="selPeca" style="flex:1;">
+                                <option value="">Selecione...</option>
+                            </select>
+                            <button class="btn-secondary btn-small" onclick="addPecaItem()">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lista-servicos-box" style="margin-top: 15px;">
+                    <table class="data-table mini-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaItensOS"></tbody>
+                    </table>
+                </div>
+
+                <div class="os-total-area" style="margin-top: 15px;">
+                    Total: R$ <span id="totalOSDisplay">0,00</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-success" onclick="salvarOSMecanica()">Gerar OS</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalEntradaPeca" class="modal-overlay-inner" style="display: none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h4>Entrada de Estoque (Peças)</h4>
+                <button class="close-btn" onclick="fecharModal('modalEntradaPeca')"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="ig"><label>Nome da Peça</label><input type="text" id="pecaNome"></div>
+                <div class="form-grid-2" style="margin-top:10px;">
+                    <div class="ig"><label>Qtd Entrada</label><input type="number" id="pecaQtd"></div>
+                    <div class="ig"><label>Custo Unit. (R$)</label><input type="number" id="pecaCusto"></div>
+                </div>
+                <div class="ig" style="margin-top:10px;"><label>Preço Venda (R$)</label><input type="number"
+                        id="pecaVenda"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-success" onclick="salvarEntradaPeca()">Confirmar Entrada</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script-mecanica.js"></script>
+</body>
+
+</html>
