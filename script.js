@@ -140,8 +140,9 @@ function montarMenu(role) {
     if (role.includes('financeiro') || role.includes('gerente')) {
         nav.innerHTML += `<a href="#" onclick="navegar('sec-financeiro')"><i class="fa-solid fa-chart-pie"></i> Financeiro</a>`;
     }
+
     if (role.includes('mecanica') || role.includes('gerente')) {
-        nav.innerHTML += `<a href="#" onclick="navegar('sec-mecanica')"><i class="fa-solid fa-wrench"></i> Oficina</a>`;
+        nav.innerHTML += ``;
     }
     if (role.includes('gerente')) {
         nav.innerHTML += `<a href="#" onclick="navegar('sec-equipe')"><i class="fa-solid fa-users"></i> Equipe</a>`;
