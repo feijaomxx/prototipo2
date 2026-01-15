@@ -37,11 +37,9 @@
                     Peças</a>
                 <a href="#" onclick="navegar('sec-fin-mec')"><i class="fa-solid fa-cash-register"></i> Financeiro
                     Oficina</a>
-                <a href="index.html" style="margin-top: 20px; background: #e3f2fd; color: #1565c0;"><i
-                        class="fa-solid fa-arrow-left"></i> Voltar para Vendas</a>
             </nav>
             <button class="btn-sair" onclick="window.location.href='index.html'">
-                <i class="fa-solid fa-power-off"></i> Sair
+                <i class="fa-solid fa-power-off"></i> Sair / Login
             </button>
         </aside>
 
@@ -148,17 +146,19 @@
                         <h3>Lançamentos Recentes</h3>
                         <button class="btn-danger" onclick="lancarDespesaAvulsa()">- Lançar Despesa Extra</button>
                     </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Descrição</th>
-                                <th>Tipo</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelaFinMecanica"></tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Descrição</th>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaFinMecanica"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
