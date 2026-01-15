@@ -1,6 +1,4 @@
-/* DADOS INICIAIS DA OFICINA */
 
-// Lista de Serviços (Mão de Obra)
 const servicosBase = [
     { id: 1, nome: "Troca de Óleo (Mão de Obra)", valor: 50.00 },
     { id: 2, nome: "Alinhamento", valor: 80.00 },
@@ -12,7 +10,7 @@ const servicosBase = [
     { id: 8, nome: "Troca de Pneu (Unid)", valor: 40.00 }
 ];
 
-// Estoque de Peças (Fictício Robusto)
+
 let estoquePecas = [
     { id: 101, nome: "Óleo 10W40 Semissintético (Litro)", qtd: 45, custo: 22.00, venda: 45.00 },
     { id: 102, nome: "Filtro de Óleo Honda/Yamaha", qtd: 30, custo: 12.00, venda: 28.00 },
@@ -26,7 +24,7 @@ let estoquePecas = [
     { id: 110, nome: "Lâmpada Farol LED H4", qtd: 20, custo: 35.00, venda: 80.00 }
 ];
 
-// Ordens de Serviço (Fictícias)
+
 let listaOS = [
     {
         id: 1001, cliente: "Carlos Mendes", veiculo: "Honda CB 500F", status: "Concluído",
@@ -34,7 +32,7 @@ let listaOS = [
         itens: [
             { tipo: 'Serviço', nome: 'Troca de Óleo', valor: 50.00 },
             { tipo: 'Peça', nome: 'Óleo 10W40 (3L)', valor: 135.00, custo: 66.00 },
-            { tipo: 'Peça', nome: 'Filtro de Óleo', valor: 50.00, custo: 20.00 } // Preço antigo simulado
+            { tipo: 'Peça', nome: 'Filtro de Óleo', valor: 50.00, custo: 20.00 }
         ]
     },
     {
@@ -43,7 +41,7 @@ let listaOS = [
         itens: [
             { tipo: 'Serviço', nome: 'Revisão Geral', valor: 350.00 },
             { tipo: 'Peça', nome: 'Pastilha de Freio', valor: 95.00, custo: 45.00 },
-            { tipo: 'Peça', nome: 'Óleo 10W40 (1L)', valor: 135.00, custo: 22.00 } // Exemplo
+            { tipo: 'Peça', nome: 'Óleo 10W40 (1L)', valor: 135.00, custo: 22.00 }
         ]
     },
     {
@@ -64,7 +62,7 @@ let listaOS = [
     }
 ];
 
-// Financeiro da Oficina (Histórico Fictício)
+
 let financeiroMec = [
     { data: "05/01/2026", desc: "Compra de Peças (Distribuidora A)", tipo: "Saída", valor: 1200.00 },
     { data: "08/01/2026", desc: "Compra de Ferramentas (Chaves)", tipo: "Saída", valor: 450.00 },
@@ -73,12 +71,12 @@ let financeiroMec = [
     { data: "12/01/2026", desc: "Pagamento Ajudante (Diária)", tipo: "Saída", valor: 100.00 }
 ];
 
-// Variáveis temporárias para criação de OS
+
 let itensTempOS = [];
 
-/* --- INICIALIZAÇÃO --- */
+
 document.addEventListener("DOMContentLoaded", () => {
-    // Recuperar usuário do login (Visual apenas)
+    
     const urlParams = new URLSearchParams(window.location.search);
     const user = urlParams.get('user') || 'Mecânico';
     document.getElementById('menuUserNome').innerText = user.toUpperCase();
@@ -97,10 +95,10 @@ function navegar(secId) {
     document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
     document.getElementById(secId).classList.add('active');
 
-    // Atualiza menu ativo
+    
     document.querySelectorAll('.menu-items a').forEach(a => a.classList.remove('active'));
 
-    // Títulos dinâmicos
+ 
     if (secId === 'sec-os') document.getElementById('pageTitle').innerText = "Gestão de Ordens de Serviço";
     if (secId === 'sec-pecas') document.getElementById('pageTitle').innerText = "Estoque de Peças";
     if (secId === 'sec-fin-mec') document.getElementById('pageTitle').innerText = "Financeiro da Oficina";
@@ -112,7 +110,7 @@ function atualizarTudo() {
     atualizarFinanceiroMec();
 }
 
-/* --- FUNÇÕES DE OS --- */
+
 
 function abrirModalNovaOS() {
     itensTempOS = [];
@@ -122,7 +120,7 @@ function abrirModalNovaOS() {
     document.getElementById('osPlaca').value = "";
     document.getElementById('osDataEntrega').value = "";
 
-    // Preencher Selects
+    
     const selServ = document.getElementById('selServico');
     selServ.innerHTML = '<option value="">Selecione Serviço...</option>';
     servicosBase.forEach(s => {
@@ -160,7 +158,7 @@ function addPecaItem() {
     const [id, type] = val.split('|');
     const peca = estoquePecas.find(p => p.id == id);
 
-    // Verifica estoque
+    
     if (peca.qtd <= 0) { alert("Peça sem estoque!"); return; }
 
     itensTempOS.push({
@@ -218,7 +216,7 @@ function salvarOSMecanica() {
 
     listaOS.push(novaOS);
 
-    // Baixa no estoque das peças usadas
+    
     novaOS.itens.forEach(item => {
         if (item.tipo === 'Peça') {
             const p = estoquePecas.find(x => x.id === item.idRef);
@@ -236,7 +234,7 @@ function finalizarOS(index) {
         const os = listaOS[index];
         os.status = "Concluído";
 
-        // Lança no financeiro
+        
         financeiroMec.push({
             data: new Date().toLocaleDateString(),
             desc: `OS #${os.id} - ${os.cliente}`,
@@ -253,7 +251,7 @@ function cancelarOS(index) {
         const os = listaOS[index];
         os.status = "Cancelado";
 
-        // Devolve peças ao estoque
+     
         os.itens.forEach(item => {
             if (item.tipo === 'Peça') {
                 const p = estoquePecas.find(x => x.id === item.idRef);
@@ -277,7 +275,7 @@ function renderizarTabelaOS() {
                 <button class="btn-danger btn-small" onclick="cancelarOS(${index})">X</button>
             `;
         } else {
-            // Estilo das pílulas de status
+            
             let stClass = os.status === 'Concluído' ? 'st-vend' : 'st-cancelado';
             btnAcao = `<span class="status-pill ${stClass}">${os.status}</span>`;
         }
@@ -295,7 +293,7 @@ function renderizarTabelaOS() {
     });
 }
 
-/* --- FUNÇÕES DE ESTOQUE --- */
+
 
 function abrirModalEntradaPeca() {
     document.getElementById('pecaNome').value = '';
@@ -313,7 +311,7 @@ function salvarEntradaPeca() {
 
     if (!nome || !qtd || !custo || !venda) { alert("Preencha tudo!"); return; }
 
-    // Adiciona ao estoque
+    
     estoquePecas.push({
         id: Date.now(),
         nome: nome,
@@ -322,7 +320,7 @@ function salvarEntradaPeca() {
         venda: venda
     });
 
-    // Lança custo no financeiro
+    
     financeiroMec.push({
         data: new Date().toLocaleDateString(),
         desc: `Compra de Peças: ${nome}`,
@@ -360,7 +358,7 @@ function renderizarEstoquePecas() {
     document.getElementById('kpiPecasBaixas').innerText = baixas;
 }
 
-/* --- FUNÇÕES DE FINANCEIRO --- */
+
 
 function atualizarFinanceiroMec() {
     const tbody = document.getElementById('tabelaFinMecanica');
@@ -403,7 +401,7 @@ function lancarDespesaAvulsa() {
     }
 }
 
-/* --- GERAIS --- */
+
 function fecharModal(id) {
     document.getElementById(id).style.display = 'none';
 }
