@@ -26,7 +26,7 @@ body {
     color: var(--text);
 }
 
-/* --- TELA DE LOGIN --- */
+
 .login-overlay {
     position: fixed;
     top: 0;
@@ -83,7 +83,7 @@ body {
     outline: none;
 }
 
-/* --- LAYOUT PRINCIPAL --- */
+
 .app-container {
     display: flex;
     height: 100vh;
@@ -233,7 +233,7 @@ body {
     animation: fade 0.3s ease-in;
 }
 
-/* --- PAINÉIS E TABELAS --- */
+
 .panel-box {
     background: white;
     padding: 25px;
@@ -300,7 +300,7 @@ body {
     padding: 8px;
 }
 
-/* --- KPIS E RANKING --- */
+
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -371,7 +371,7 @@ body {
     width: 30px;
 }
 
-/* --- WIZARD E FORMULÁRIOS --- */
+
 .wizard-container.paper-style {
     background: white;
     border-radius: 15px;
@@ -544,7 +544,7 @@ textarea {
     padding-top: 30px;
 }
 
-/* --- CONTRATO (ESTILO DOCUMENTO) --- */
+
 .docs-container {
     display: flex;
     justify-content: center;
@@ -560,7 +560,7 @@ textarea {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 800px;
-    /* Largura A4 aprox */
+    
     display: flex;
     flex-direction: column;
     min-height: 800px;
@@ -611,9 +611,6 @@ textarea {
     font-size: 0.9rem;
 }
 
-/* Removido o estilo do Receipt (Recibo) antigo pois não será mais usado */
-
-/* --- MODAIS (OS e Serviço) --- */
 .modal-overlay-inner {
     position: fixed;
     top: 0;
@@ -710,7 +707,7 @@ textarea {
     border-top: 1px solid #eee;
 }
 
-/* --- BOTÕES E STATUS --- */
+
 .btn-primary,
 .btn-secondary,
 .btn-success,
@@ -961,7 +958,7 @@ body {
     color: var(--text);
 }
 
-/* --- TELA DE LOGIN --- */
+
 .login-overlay {
     position: fixed;
     top: 0;
@@ -1018,7 +1015,7 @@ body {
     outline: none;
 }
 
-/* --- LAYOUT PRINCIPAL --- */
+
 .app-container {
     display: flex;
     height: 100vh;
@@ -1168,7 +1165,7 @@ body {
     animation: fade 0.3s ease-in;
 }
 
-/* --- PAINÉIS E TABELAS --- */
+
 .panel-box {
     background: white;
     padding: 25px;
@@ -1235,7 +1232,7 @@ body {
     padding: 8px;
 }
 
-/* --- KPIS E RANKING --- */
+
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1306,7 +1303,7 @@ body {
     width: 30px;
 }
 
-/* --- WIZARD E FORMULÁRIOS --- */
+
 .wizard-container.paper-style {
     background: white;
     border-radius: 15px;
@@ -1479,7 +1476,7 @@ textarea {
     padding-top: 30px;
 }
 
-/* --- CONTRATO (ESTILO DOCUMENTO) --- */
+
 .docs-container {
     display: flex;
     justify-content: center;
@@ -1495,7 +1492,6 @@ textarea {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 800px;
-    /* Largura A4 aprox */
     display: flex;
     flex-direction: column;
     min-height: 800px;
@@ -1546,9 +1542,7 @@ textarea {
     font-size: 0.9rem;
 }
 
-/* Removido o estilo do Receipt (Recibo) antigo pois não será mais usado */
 
-/* --- MODAIS (OS e Serviço) --- */
 .modal-overlay-inner {
     position: fixed;
     top: 0;
@@ -1645,7 +1639,7 @@ textarea {
     border-top: 1px solid #eee;
 }
 
-/* --- BOTÕES E STATUS --- */
+
 .btn-primary,
 .btn-secondary,
 .btn-success,
@@ -1769,7 +1763,7 @@ textarea {
     z-index: 1000;
 }
 
-/* RESPONSIVIDADE */
+
 @media (max-width: 992px) {
     .wizard-progress {
         padding: 20px 10px;
